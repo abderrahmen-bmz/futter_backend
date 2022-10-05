@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePushNotificationsTable extends Migration
+class CreateBusinessSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreatePushNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('push_notifications', function (Blueprint $table) {
+        Schema::create('business_settings', function (Blueprint $table) {
             $table->id();
+            $table->string("key");
+            $table->text("value");
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreatePushNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('push_notifications');
+        Schema::dropIfExists('business_settings');
     }
 }

@@ -16,16 +16,19 @@ class UserController extends Controller
         $plainPassword=$request->password;
         $password=bcrypt($request->password);
         $request->request->add(['password' => $password]);
- 
-        // create the user account 
+
+        // create the user account
         $created=User::create($request->all());
         $request->request->add(['password' => $plainPassword]);
         // login now..
         return $this->login($request);
     }
+
+
+    
     public function login(Request $request)
     {
-        
+
         $input = $request->only('email', 'password');
         $jwt_token = null;
         if (!$jwt_token = JWTAuth::attempt($input)) {
@@ -34,9 +37,9 @@ class UserController extends Controller
                 'message' => 'Invalid Email or Password',
             ], 401);
         }
-        // get the user 
+        // get the user
         $user = Auth::user();
-       
+
         return response()->json([
             'success' => true,
             'token' => $jwt_token,
@@ -51,7 +54,7 @@ class UserController extends Controller
              'success' => false,
             ],422);
         }
-        
+
         try {
             JWTAuth::invalidate(JWTAuth::parseToken($request->token));
             return response()->json([
@@ -72,20 +75,20 @@ class UserController extends Controller
             'message' => 'Token is required'
            ],422);
        }
-        
+
         $user = JWTAuth::parseToken()->authenticate();
        // add isProfileUpdated....
        $isProfileUpdated=false;
         if($user->isPicUpdated==1 && $user->isEmailUpdated){
             $isProfileUpdated=true;
-            
+
         }
         $user->isProfileUpdated=$isProfileUpdated;
 
         return $user;
 }
 
-   
+
 public function update(Request $request){
     $user=$this->getCurrentUser($request);
     if(!$user){
@@ -94,14 +97,14 @@ public function update(Request $request){
             'message' => 'User is not found'
         ]);
     }
-   
+
     unset($data['token']);
 
     $updatedUser = User::where('id', $user->id)->update($data);
     $user =  User::find($user->id);
 
     return response()->json([
-        'success' => true, 
+        'success' => true,
         'message' => 'Information has been updated successfully!',
         'user' =>$user
     ]);

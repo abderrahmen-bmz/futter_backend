@@ -14,7 +14,7 @@ class AddFcmTokenToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('fcm_token')->nullable();
+            $table->string('cm_firebase_token')->nullable();
 
         });
     }

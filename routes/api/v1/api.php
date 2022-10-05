@@ -37,8 +37,8 @@ Route::group(['namespace' => 'Api\V1'], function () {
         Route::get('info', 'CustomerController@info');
         Route::post('update-profile', 'CustomerController@update_profile');
         Route::post('update-interest', 'CustomerController@update_interest');
-       // Route::put('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
-        Route::post('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
+         Route::put('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
+       //Route::post('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
 
         Route::get('suggested-foods', 'CustomerController@get_suggested_food');
 

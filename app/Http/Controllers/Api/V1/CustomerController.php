@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\CentralLogics\Helpers;
 use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -100,13 +101,19 @@ class CustomerController extends Controller{
     public function update_cm_firebase_token(Request $request)
     {
 
-        $address = [
-            'id' => $request->id,
-            'fcm_token' => $request->token,
+        $validator = Validator::make($request->all(), [
+            "cm_firebase_token" => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)],403);
+        }
+        // = [
+        //     'id' => $request->id,
+        //     'fcm_token' => $request->token,
 
-        ];
-        DB::table('users')->where('id', $request->id)->update(['fcm_token'=>$request->token]);
-        return response()->json(['message' => trans('messages.updated_successfully')], 200);
+        // ];
+        DB::table('users')->where('id', $request->user()->id)->update(['cm_firebase_token'=>$request['cm_firebase_token']]);
+        return response()->json(['message' => trans('messages.updated_successfully_TOKEN')], 200);
         // auth()->user()->update(['fcm_token'=>$request->token]);
         // return response()->json(['Notification Token successfully stored.']);
     }

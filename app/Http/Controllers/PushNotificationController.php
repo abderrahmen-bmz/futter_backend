@@ -49,7 +49,7 @@ class PushNotificationController extends Controller
         // return redirect()->back()->with('success', 'Notification Send successfully');
 
         $SERVER_API_KEY =   'AAAA7oSRoSI:APA91bEMUHxy1a7xf_1GJsk-9W1xEJma_1y_eD9lh-dcfFeFDJAojgTGTRXh7_pL-TuFHTpUyhxjqhF1vpx2JS-nZCZh2JvGGiNsR6Flfowon7mWkfQ16RyxAx5vLOL2C0ub5EIL86jq';
-        $token_1 = 'cGScUO9OTdu5UGwT2bKJ6O:APA91bH28dneF5eLZ88GNpSqEDBiEMdy98S38EGTgnfjLH2EHJjD5CqYtIIiPG79wrisSjO2SpHBkhSPl4uYQ4zV4y_vg7tx65K5guDhEsum29TVxkWjKS-7Htbz56886rsb7Q_1Joyc';
+        $token_1 = 'cWQc7_cRTc6SZow6vo0dLh:APA91bFhXN-SMc9nU5stpNZOhKBvYY9PYU-nfvpLzd3ewS6E-IkRnIRs3M7bGBR4wlAwTaR27Rqqh41XSm9IhxSycCujaOWFN6VvIONAwWbfcKTi-ffgBxQw1Pjbw2_BSQKtLjtWOKQ7';
 
         $data = [
 

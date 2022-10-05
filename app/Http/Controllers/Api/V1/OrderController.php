@@ -45,12 +45,12 @@ class OrderController extends Controller
         $order->pending = now(); //checked
         $order->created_at = now(); //checked
         $order->updated_at = now();//checked
-        $order->order_type = $request['order_type'];
+      //  $order->order_type = $request['order_type'];
        // from here
         $order->payment_status = $request['payment_status'] == 'wallet'? 'paid' : 'unpaid';
         $order->order_status = $request['payment_method'] == 'digital_payment' ? 'failed': ($request->payment_method == 'wallet' ? 'confirmed' : 'pending');
         $order->payment_method = $request->payment_method;
-        
+
         $scheduled_at = $request->scheduled_at?\Carbon\Carbon::parse($request->scheduled_at):now();
 
         if ($request->scheduled_at && $scheduled_at < now()) {
@@ -109,6 +109,14 @@ class OrderController extends Controller
             */
             OrderDetail::insert($order_details);
 
+
+
+            /**
+             *  Code for sending notfications to the customer
+             */
+
+             Helpers::send_order_notification($order,$request->user()->cm_firebase_token);
+             /** ends here */
             return response()->json([
                 'message' => trans('messages.order_placed_successfully'),
                 'order_id' =>  $save_order,
